@@ -1,15 +1,11 @@
-import itertools
-import functools
-import operator
-
 
 def get_input(file_path: str) -> list:
     with open(file_path) as f:
         return [line for line in f.readlines()]
 
 
-def password_validity_initial(pass_line: str) -> bool:
-    text_split = pass_line.split()
+def password_validity_initial(password_line: str) -> bool:
+    text_split = password_line.split()
 
     limits = text_split[0].split("-")
     lower_limit = int(limits[0])
