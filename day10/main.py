@@ -36,6 +36,8 @@ def node_builder(adapter_set: set) -> dict:
 
 def path_counter_graph(node_dict: dict, start_node: int) -> int:
 
+    global history
+
     my_sum = 0
     for node in node_dict[start_node]:
         if node in history.keys():
