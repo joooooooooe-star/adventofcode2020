@@ -6,8 +6,8 @@ class SeatChart:
 
     def __init__(self, instructions: list):
         self.rows = [line for line in instructions]
-        self.x_coord = len(self.rows[0])
-        self.y_coord = len(self.rows)
+        self.x_max = len(self.rows[0])
+        self.y_max = len(self.rows)
         self.adj_cell_list = defaultdict(int)
 
         all_possible_coords = {-1, 0, 1}
@@ -24,15 +24,15 @@ class SeatChart:
             return self.rows == other.rows
         return False
 
-    def find_valid_adjacent_cells(self):
-        for base_y in range(0, self.y_coord):
-            for base_x in range(0, self.x_coord):
+    def find_filled_adjacent_cells(self):
+        for base_y in range(0, self.y_max):
+            for base_x in range(0, self.x_max):
                 for (coord_x, coord_y) in self.search_matrix:
                     boundary_conds = [
                         base_y + coord_y < 0,
-                        base_y + coord_y >= self.y_coord,
+                        base_y + coord_y >= self.y_max,
                         base_x + coord_x < 0,
-                        base_x + coord_x >= self.x_coord,
+                        base_x + coord_x >= self.x_max,
                     ]
                     if not any(boundary_conds) and self.rows[base_y + coord_y][base_x + coord_x] == "#":
                         self.adj_cell_list[(base_x, base_y)] += 1
@@ -47,9 +47,9 @@ class SeatChart:
             checkpoint_x += search_vector[0]
             boundary_conds = [
                 checkpoint_y < 0,
-                checkpoint_y >= self.y_coord,
+                checkpoint_y >= self.y_max,
                 checkpoint_x < 0,
-                checkpoint_x >= self.x_coord,
+                checkpoint_x >= self.x_max,
             ]
             if any(boundary_conds):
                 return 0
@@ -59,8 +59,8 @@ class SeatChart:
                 return 1
 
     def find_valid_adjacent_cells_v2(self):
-        for base_y in range(0, self.y_coord):
-            for base_x in range(0, self.x_coord):
+        for base_y in range(0, self.y_max):
+            for base_x in range(0, self.x_max):
                 for vec in self.search_matrix:
                     self.adj_cell_list[(base_x, base_y)] += self.find_first_directional_occupied(
                         base_y, base_x, vec)
