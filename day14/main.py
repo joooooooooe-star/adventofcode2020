@@ -1,6 +1,7 @@
 import itertools
 from collections import defaultdict
 
+
 class Decoder:
 
     def __init__(self):
